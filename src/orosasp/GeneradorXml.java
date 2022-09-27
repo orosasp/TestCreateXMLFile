@@ -1,11 +1,30 @@
 package orosasp;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
 import com.thoughtworks.xstream.XStream;
 
 public class GeneradorXml {
 
 	public static void main(String[] args) {
-		Emisor emisor = new Emisor("FAU210730D74", "FULLE AUTOMOTRIZ", "626");
+		String filePath = System.getProperty("user.dir") + "\\test.xml";
+		File file = new File(filePath);
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+				System.out.println("Archivo XML creado correctamente");
+			} catch (Exception e) {
+				System.out.println("Ocurrio un error creando el archivo");
+				System.out.println(e.getMessage());
+			}
+		}
+		
+		
+		Emisor emisor = new Emisor("FAU210730D75", "FULLE AUTOMOTRIZ", "626");
 		
 		XStream xstream = new XStream();
 		xstream.alias("cfdi:Emisor", Emisor.class);
@@ -17,7 +36,12 @@ public class GeneradorXml {
 		xstream.aliasField("Nombre", Emisor.class, "nombre");
 		xstream.aliasField("RegimenFiscal", Emisor.class, "regimenFiscal");
 		
-		System.out.println(xstream.toXML(emisor));
+		try (OutputStream outputStream = new FileOutputStream(filePath); Writer writer = new OutputStreamWriter(outputStream)) {
+			xstream.toXML(emisor, writer);
+		} catch (Exception e) {
+			System.out.println("Ocurrio un error escribiendo el archivo XML");
+		}
+		
 	}
 
 }
