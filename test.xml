@@ -1,1 +1,5 @@
-<cfdi:Emisor Rfc="FAU210730D75" Nombre="FULLE AUTOMOTRIZ" RegimenFiscal="626"/>
+<Emisores>
+  <cfdi:Emisor Rfc="FAU210730D75" Nombre="FULL AUTOMOTRIZ" RegimenFiscal="626"/>
+  <cfdi:Emisor Rfc="AAU210730D75" Nombre="AFULL AUTOMOTRIZ" RegimenFiscal="A626"/>
+  <cfdi:Emisor Rfc="EEU210730D75" Nombre="EFULL AUTOMOTRIZ" RegimenFiscal="AE26"/>
+</Emisores>
